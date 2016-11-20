@@ -1,0 +1,23 @@
+{
+  "name": "incognito-stream",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Google Chrome extension for incognito-mode browsing of stream.cz content.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "stream.cz",
+    "video",
+    "incognito",
+    "privacy"
+  ],
+  "author": "Martin Jurča <mjurca@centrum.cz>",
+  "license": "ISC",
+  "dependencies": {
+    "blueimp-md5": "^2.5.0"
+  }
+}

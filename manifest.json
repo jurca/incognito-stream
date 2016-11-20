@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "Incognito Stream.cz",
+  "version": "0.1.0",
+
+  "description": "Google Chrome extension for incognito-mode viewing of stream.cz",
+  "icons": {
+    "16": "icon/16.png",
+    "48": "icon/48.png",
+    "128": "icon/128.png"
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon/16.png",
+      "24": "icon/24.png",
+      "32": "icon/32.png"
+    },
+    "default_title": "Incognito Stream.cz",
+    "default_popup": "browserAction/popup.html"
+  },
+
+  "author": "Martin Jurča <mjurca@centrum.cz>",
+  "background": {
+    "scripts": [
+      "node_modules/blueimp-md5/js/md5.js",
+      "background/Request.js",
+      "background/ApiClient.js",
+      "background/StreamApiClient.js",
+      "background/Server.js",
+      "background/main.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "https://www.stream.cz/"
+  ]
+}
