@@ -32,7 +32,9 @@ class StreamApiClient {
    */
   getNewEpisodes(beforeEpisode = null) {
     let url = beforeEpisode ?
-        `/timeline/latest?timestamp_from=${Math.floor(beforeEpisode.published / 1000)}&episode_id=${beforeEpisode.id}`:
+        `/timeline/latest?timestamp_from=${
+          Math.floor(beforeEpisode.published / 1000)
+        }&episode_id=${beforeEpisode.id}`:
         '/timeline/latest'
     return this._apiClient.get(url).then(responseBody => ({
       episodes: responseBody._embedded['stream:episode'].map(data => ({
