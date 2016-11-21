@@ -25,7 +25,7 @@
       // some reason (bug?), so we'll just open an ordinary tab.
 
       let url = chrome.runtime.getURL(
-        '../episode/episode.html?episode=' + episodeId
+        'episode/episode.html?episode=' + episodeId
       )
       chrome.tabs.create({
         url

@@ -23,6 +23,26 @@
     }, 200)
   })
 
+  addEventListener('click', (event) => {
+    let target = event.target
+    while (target && !target.hasAttribute('data-id')) {
+      target = target.parentNode
+    }
+    if (!target) {
+      return
+    }
+
+    let episodeId = parseInt(target.getAttribute('data-id'))
+    navigateToEpisode(episodeId)
+  })
+
+  function navigateToEpisode(episodeId) {
+    let url = chrome.runtime.getURL(
+      `episode/episode.html?episode=${episodeId}`
+    )
+    location.href = url;
+  }
+
   function renderEpisode(episode, nextEpisodes) {
     return `
       <div class="episode-main-content">

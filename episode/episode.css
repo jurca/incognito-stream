@@ -48,8 +48,17 @@
   flex: 0 0 180px;
 }
 
-.next-episode h2 {
+.next-episode {
   margin: 0 0 16px;
+  cursor: pointer;
+}
+
+.next-episode:hover {
+  background: #f0f0f0;
+}
+
+.next-episode h2 {
   font-size: 1rem;
   font-weight: normal;
+  margin: 0;
 }
