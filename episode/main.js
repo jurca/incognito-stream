@@ -10,19 +10,30 @@
   let contentContainer = document.querySelector('#content')
 
   sendMessage('fetchEpisode', { episodeId }).then((episode) => {
-    contentContainer.innerHTML = renderEpisode(episode)
+    return sendMessage('fetchSubsequentEpisodes', {
+      episode
+    }).then(episodes => [episode, episodes])
+  }).then(([episode, nextEpisodes]) => {
+    contentContainer.innerHTML = renderEpisode(episode, nextEpisodes.episodes)
   })
 
-  function renderEpisode(episode) {
+  function renderEpisode(episode, nextEpisodes) {
     return `
-      ${renderPlayer(episode)}
-      <p>
-        <iframe
-            class="episode-description"
-            srcdoc="${episode.description.replace(/"/g, '&quot;')}"
-            sandbox>
-        </iframe>
-      </p>
+      <div class="episode-main-content">
+        <div class="episode-main-column">
+          ${renderPlayer(episode)}
+          <p>
+            <iframe
+                class="episode-description"
+                srcdoc="${episode.description.replace(/"/g, '&quot;')}"
+                sandbox>
+            </iframe>
+          </p>
+        </div>
+        <div class="episode-next-episodes">
+         ${nextEpisodes.slice(0, 3).map(episode => renderNextEpisode(episode)).join('')}
+        </div>
+      </div>
     `
   }
 
@@ -49,6 +60,23 @@
         </video>
       </div>
     `
+  }
+
+  function renderNextEpisode(episode) {
+    return `
+      <div class="next-episode" data-id="${episode.id}">
+        <img
+            src="https:${episode.imageUrlTemplate.replace('{width}', 180).replace('{height}', 100)}"
+            alt="${episode.title.replace('"', '&quot;')}">
+        <h2>${escape(episode.title)}</h2>
+      </div>
+    `
+  }
+
+  function escape(string) {
+    let container = document.createElement('span')
+    container.appendChild(document.createTextNode(string))
+    return container.innerHTML
   }
 
 })()

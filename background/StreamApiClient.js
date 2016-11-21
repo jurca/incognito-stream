@@ -13,7 +13,7 @@ class StreamApiClient {
   }
 
   /**
-   * @param {?number} beforeEpisode
+   * @param {?{id: number, published: number}} beforeEpisode
    * @return {Promise<{
    *           episodes: {
    *             id: number,
@@ -32,7 +32,7 @@ class StreamApiClient {
    */
   getNewEpisodes(beforeEpisode = null) {
     let url = beforeEpisode ?
-        `/timeline/latest?episode_id=${beforeEpisode}` :
+        `/timeline/latest?timestamp_from=${Math.floor(beforeEpisode.published / 1000)}&episode_id=${beforeEpisode.id}`:
         '/timeline/latest'
     return this._apiClient.get(url).then(responseBody => ({
       episodes: responseBody._embedded['stream:episode'].map(data => ({

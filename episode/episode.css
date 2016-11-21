@@ -7,11 +7,19 @@
   max-width: 1200px;
 }
 
+.episode-main-content {
+  display: flex;
+}
+
+.episode-main-column {
+  flex: 1 0 auto;
+  align-self: flex-start;
+}
+
 .player {
   position: relative;
 
   margin-bottom: 24px;
-  width: 100%;
 }
 
 .player-sizer {
@@ -32,4 +40,16 @@
   border: 0;
   width: 100%;
   height: 250px;
+}
+
+.episode-next-episodes {
+  margin-left: 16px;
+  width: 180px;
+  flex: 0 0 180px;
+}
+
+.next-episode h2 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: normal;
 }

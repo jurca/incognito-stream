@@ -30,4 +30,8 @@ class Server {
   onFetchEpisode({ episodeId }) {
     return this._apiClient.getEpisode(episodeId)
   }
+
+  onFetchSubsequentEpisodes({ episode }) {
+    return this._apiClient.getNewEpisodes(episode)
+  }
 }
