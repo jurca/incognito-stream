@@ -21,58 +21,15 @@
 
   function openEpisode(episodeId) {
     chrome.windows.getAll({ windowTypes: ['normal'] }, (windows) => {
-      // note: the returned windows do not include the incognito windows for
-      // some reason
-      let windowToUse
-      for (let window of windows) {
-        if (
-          window.focused &&
-          window.incognito &&
-          !['minimized', 'docked'].includes(window.state)
-        ) {
-          windowToUse = window
-          break
-        }
-      }
-      if (!windowToUse) {
-        for (let window of windows) {
-          if (
-            window.incognito &&
-            !['minimized', 'docked'].includes(window.state)
-          ) {
-            windowToUse = window
-            break
-          }
-        }
-      }
-      if (!windowToUse) {
-        for (let window of windows) {
-          if (window.incognito) {
-            windowToUse = window
-            break
-          }
-        }
-      }
+      // Chrome does not allow us to properly manipulate incognito windows for
+      // some reason (bug?), so we'll just open an ordinary tab.
 
       let url = chrome.runtime.getURL(
         '../episode/episode.html?episode=' + episodeId
       )
-      /* the following does not work properly, yet
-      if (windowToUse) {
-        chrome.tabs.create({
-          windowId: windowToUse.id,
-          url
-        })
-        chrome.windows.update(windowToUse.id, {
-          focused: true
-        })
-      } {*/
-        chrome.windows.create({
-          url,
-          focused: true,
-          incognito: true
-        })
-      //}
+      chrome.tabs.create({
+        url
+      })
     })
   }
 
