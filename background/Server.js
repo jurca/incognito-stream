@@ -12,8 +12,8 @@ class Server {
 
   start() {
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-      let command = message.command
-      let method = `on${command.charAt(0).toUpperCase()}${command.substring(1)}`
+      let cmd = message.command
+      let method = `on${cmd.charAt(0).toUpperCase()}${cmd.substring(1)}`
 
       Promise.resolve(this[method](message.args)).then((response) => {
         sendResponse(response)
