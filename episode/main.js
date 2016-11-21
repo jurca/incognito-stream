@@ -15,6 +15,12 @@
     }).then(episodes => [episode, episodes])
   }).then(([episode, nextEpisodes]) => {
     contentContainer.innerHTML = renderEpisode(episode, nextEpisodes.episodes)
+  }).then(() => {
+    setTimeout(() => {
+      let iframe = contentContainer.querySelector('iframe.episode-description')
+      let height = iframe.contentWindow.document.body.scrollHeight
+      iframe.style.height = `${height}px`
+    }, 200)
   })
 
   function renderEpisode(episode, nextEpisodes) {
@@ -26,7 +32,7 @@
             <iframe
                 class="episode-description"
                 srcdoc="${episode.description.replace(/"/g, '&quot;')}"
-                sandbox>
+                sandbox="allow-same-origin">
             </iframe>
           </p>
         </div>
