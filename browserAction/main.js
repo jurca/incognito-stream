@@ -27,9 +27,16 @@
       let url = chrome.runtime.getURL(
         'episode/episode.html?episode=' + episodeId
       )
-      chrome.tabs.create({
-        url
-      })
+      if (!!localStorage.getItem(STORAGE_KEYS.INCOGNITO)) {
+        chrome.windows.create({
+          url,
+          incognito: true
+        })
+      } else {
+        chrome.tabs.create({
+          url
+        })
+      }
     })
   }
 
