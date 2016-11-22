@@ -38,6 +38,7 @@
     "page": "options/options.html"
   },
   "permissions": [
-    "https://www.stream.cz/"
+    "https://www.stream.cz/",
+    "storage"
   ]
 }

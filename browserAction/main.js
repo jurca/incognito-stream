@@ -5,6 +5,10 @@
   sendMessage('fetchEpisodes').then((response) => {
     content.innerHTML = renderEpisodes(response.episodes)
   })
+  let INCOGNITO
+  chrome.storage.local.get(STORAGE_KEYS.INCOGNITO, (configuration) => {
+    INCOGNITO = !!configuration[STORAGE_KEYS.INCOGNITO]
+  })
 
   addEventListener('click', (event) => {
     let target = event.target
@@ -27,7 +31,7 @@
       let url = chrome.runtime.getURL(
         'episode/episode.html?episode=' + episodeId
       )
-      if (!!localStorage.getItem(STORAGE_KEYS.INCOGNITO)) {
+      if (INCOGNITO) {
         chrome.windows.create({
           url,
           incognito: true
