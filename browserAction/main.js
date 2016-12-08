@@ -2,12 +2,13 @@
 (() => {
 
   let content = document.querySelector('#content')
-  sendMessage('fetchEpisodes').then((response) => {
-    content.innerHTML = renderEpisodes(response.episodes)
-  })
   let INCOGNITO
   chrome.storage.local.get(STORAGE_KEYS.INCOGNITO, (configuration) => {
     INCOGNITO = !!configuration[STORAGE_KEYS.INCOGNITO]
+
+    sendMessage('fetchEpisodes').then((response) => {
+      content.innerHTML = renderEpisodes(response.episodes)
+    })
   })
 
   addEventListener('click', (event) => {
@@ -64,7 +65,9 @@
             src="https:${constructEpisodeImage(episode)}"
             alt="${escape(episode.title).replace(/"/g, '&quot;')}">
         <div class="episode-text-content">
-          <h2>${escape(episode.title)}</h2>
+          <h2 title="${escape(episode.title).replace(/"/g, '&quot;')}">
+            ${escape(episode.title)}
+          </h2>
           <p>
             <span>
               ${formatDate(episode.published)}
