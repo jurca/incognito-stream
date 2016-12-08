@@ -15,6 +15,7 @@
     }).then(episodes => [episode, episodes])
   }).then(([episode, nextEpisodes]) => {
     contentContainer.innerHTML = renderEpisode(episode, nextEpisodes.episodes)
+    document.title = `${episode.title} | Incognito Stream.cz`
   }).then(() => {
     setTimeout(() => {
       let iframe = contentContainer.querySelector('iframe.episode-description')
@@ -51,7 +52,7 @@
           <p>
             <iframe
                 class="episode-description"
-                srcdoc="${episode.description.replace(/"/g, '&quot;')}"
+                srcdoc="<h1>${escape(episode.title).replace(/"/g, '&quot;')}</h1>${episode.description.replace(/"/g, '&quot;')}"
                 sandbox="allow-same-origin">
             </iframe>
           </p>
