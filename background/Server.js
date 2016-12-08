@@ -1,11 +1,11 @@
 
 class Server {
   /**
-   * @param {StreamApiClient} apiClient
+   * @param {Promise<StreamApiClient>} apiClient
    */
   constructor(apiClient) {
     /**
-     * @type {StreamApiClient}
+     * @type {Promise<StreamApiClient>}
      */
     this._apiClient = apiClient
   }
@@ -24,14 +24,14 @@ class Server {
   }
 
   onFetchEpisodes() {
-    return this._apiClient.getNewEpisodes()
+    return this._apiClient.then(apiClient => apiClient.getNewEpisodes())
   }
 
   onFetchEpisode({ episodeId }) {
-    return this._apiClient.getEpisode(episodeId)
+    return this._apiClient.then(apiClient => apiClient.getEpisode(episodeId))
   }
 
   onFetchSubsequentEpisodes({ episode }) {
-    return this._apiClient.getNewEpisodes(episode)
+    return this._apiClient.then(apiClient => apiClient.getNewEpisodes(episode))
   }
 }
