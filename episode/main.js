@@ -17,11 +17,14 @@
     contentContainer.innerHTML = renderEpisode(episode, nextEpisodes.episodes)
     document.title = `${episode.title} | Incognito Stream.cz`
   }).then(() => {
+    let iframe = contentContainer.querySelector('iframe.episode-description')
+
     setTimeout(() => {
-      let iframe = contentContainer.querySelector('iframe.episode-description')
-      let height = iframe.contentWindow.document.body.scrollHeight
-      iframe.style.height = `${height}px`
-    }, 200)
+      requestAnimationFrame(() => {
+        let height = iframe.contentWindow.document.body.scrollHeight
+        iframe.style.height = `${height}px`
+      })
+    }, 500)
   })
 
   addEventListener('click', (event) => {
