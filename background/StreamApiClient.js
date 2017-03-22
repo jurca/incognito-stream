@@ -2,13 +2,23 @@
 class StreamApiClient {
   /**
    * @param {ApiClient} apiClient
+   * @param {string} showsBlacklist
    */
-  constructor(apiClient) {
+  constructor(apiClient, showsBlacklist) {
     /**
      * @type {ApiClient}
      */
     this._apiClient = apiClient
 
+    /**
+     * @type {string[]}
+     */
+    this._showsBlacklist = showsBlacklist.trim() ?
+      showsBlacklist.split(',').map(show => show.trim().toLowerCase())
+    :
+      []
+
+    Object.freeze(this._showsBlacklist)
     Object.freeze(this)
   }
 
@@ -36,6 +46,8 @@ class StreamApiClient {
           Math.floor(beforeEpisode.published / 1000)
         }&episode_id=${beforeEpisode.id}`:
         '/timeline/latest'
+    let blacklist = this._showsBlacklist
+
     return this._apiClient.get(url).then(responseBody => ({
       episodes: responseBody._embedded['stream:episode'].map(data => ({
         id: data.id,
@@ -48,7 +60,9 @@ class StreamApiClient {
           title: data._embedded['stream:show'].name
         },
         apiLink: data._links.self.href
-      })),
+      })).filter(
+        episode => !blacklist.includes(episode.show.title.toLowerCase())
+      ),
       nextLink: responseBody._links.next.href
     }))
   }
