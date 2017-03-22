@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Incognito Stream.cz",
-  "version": "0.1.0",
+  "version": "0.2.0",
 
   "description": "Google Chrome extension for incognito-mode viewing of stream.cz",
   "icons": {
