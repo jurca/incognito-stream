@@ -1,5 +1,5 @@
 
-(() => {
+(async () => {
 
   const TARGET_QUALITY = 720;
 
@@ -9,23 +9,20 @@
   }
   let contentContainer = document.querySelector('#content')
 
-  sendMessage('fetchEpisode', { episodeId }).then((episode) => {
-    return sendMessage('fetchSubsequentEpisodes', {
-      episode
-    }).then(episodes => [episode, episodes])
-  }).then(([episode, nextEpisodes]) => {
-    contentContainer.innerHTML = renderEpisode(episode, nextEpisodes.episodes)
-    document.title = `${episode.title} | Incognito Stream.cz`
-  }).then(() => {
-    let iframe = contentContainer.querySelector('iframe.episode-description')
+  const episode = await sendMessage('fetchEpisode', { episodeId })
+  const nextEpisodes = await sendMessage('fetchSubsequentEpisodes', { episode })
 
-    setTimeout(() => {
-      requestAnimationFrame(() => {
-        let height = iframe.contentWindow.document.body.scrollHeight
-        iframe.style.height = `${height}px`
-      })
-    }, 500)
-  })
+  contentContainer.innerHTML = renderEpisode(episode, nextEpisodes.episodes)
+  document.title = `${episode.title} | Incognito Stream.cz`
+
+  let iframe = contentContainer.querySelector('iframe.episode-description')
+
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      let height = iframe.contentWindow.document.body.scrollHeight
+      iframe.style.height = `${height}px`
+    })
+  }, 500)
 
   addEventListener('click', (event) => {
     let target = event.target
