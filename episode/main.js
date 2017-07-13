@@ -29,7 +29,7 @@
 
   addEventListener('click', (event) => {
     let target = event.target
-    while (target && !target.hasAttribute('data-id')) {
+    while (target && (!target.hasAttribute || !target.hasAttribute('data-id'))) {
       target = target.parentNode
     }
     if (!target) {
@@ -99,6 +99,7 @@
             src="https:${episode.imageUrlTemplate.replace('{width}', 180).replace('{height}', 100)}"
             alt="${episode.title.replace('"', '&quot;')}">
         <h2>${escape(episode.title)}</h2>
+        <h3>${escape(episode.show.title)}</h3>
       </div>
     `
   }
