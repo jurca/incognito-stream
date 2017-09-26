@@ -19,7 +19,7 @@
 
   setTimeout(() => {
     requestAnimationFrame(() => {
-      let height = iframe.contentWindow.document.body.scrollHeight
+      let height = iframe.contentDocument.documentElement.scrollHeight
       iframe.style.height = `${height}px`
     })
   }, 500)
