@@ -1,10 +1,9 @@
 import {sendMessage} from '../utils.js'
 import playerTemplate from './ui/player.js'
 import episodeLinkTemplate from './ui/episodeLink.js'
+import richContentTemplate, {registerRichContentElement} from './ui/richContent.js'
 
 (async () => {
-
-  const TARGET_QUALITY = 720;
 
   let episodeId = parseInt(/episode=(\d+)/.exec(location.search)[1])
   if (!episodeId) {
@@ -18,14 +17,7 @@ import episodeLinkTemplate from './ui/episodeLink.js'
   contentContainer.innerHTML = renderEpisode(episode, nextEpisodes.episodes)
   document.title = `${episode.title} | Incognito Stream.cz`
 
-  let iframe = contentContainer.querySelector('iframe.episode-description')
-
-  setTimeout(() => {
-    requestAnimationFrame(() => {
-      let height = iframe.contentDocument.documentElement.scrollHeight
-      iframe.style.height = `${height}px`
-    })
-  }, 500)
+  registerRichContentElement()
 
   addEventListener('click', (event) => {
     let target = event.target
@@ -53,11 +45,7 @@ import episodeLinkTemplate from './ui/episodeLink.js'
         <div class="episode-main-column">
           ${playerTemplate(episode)}
           <p>
-            <iframe
-                class="episode-description"
-                srcdoc="<h1>${escape(episode.title).replace(/"/g, '&quot;')}</h1>${episode.description.replace(/"/g, '&quot;')}"
-                sandbox="allow-same-origin">
-            </iframe>
+            ${richContentTemplate(`<h1>${episode.title}</h1>${episode.description}`)}
           </p>
         </div>
         <div class="episode-next-episodes">
