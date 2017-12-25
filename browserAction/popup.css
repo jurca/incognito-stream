@@ -22,6 +22,9 @@ body {
 .episode {
   display: flex;
 
+  color: #000000;
+  text-decoration: none;
+
   cursor: pointer;
 }
 
