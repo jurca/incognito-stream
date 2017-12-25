@@ -1,5 +1,6 @@
 import {sendMessage} from '../utils.js'
 import playerTemplate from './ui/player.js'
+import episodeLinkTemplate from './ui/episodeLink.js'
 
 (async () => {
 
@@ -60,20 +61,11 @@ import playerTemplate from './ui/player.js'
           </p>
         </div>
         <div class="episode-next-episodes">
-         ${nextEpisodes.slice(0, 3).map(episode => renderNextEpisode(episode)).join('')}
+          ${nextEpisodes.slice(0, 3).map(episode => episodeLinkTemplate({
+            ...episode,
+            imageUrl: `https:${episode.imageUrlTemplate.replace('{width}', 180).replace('{height}', 100)}`  
+          })).join('')}
         </div>
-      </div>
-    `
-  }
-
-  function renderNextEpisode(episode) {
-    return `
-      <div class="next-episode" data-id="${episode.id}">
-        <img
-            src="https:${episode.imageUrlTemplate.replace('{width}', 180).replace('{height}', 100)}"
-            alt="${episode.title.replace('"', '&quot;')}">
-        <h2>${escape(episode.title)}</h2>
-        <h3>${escape(episode.show.title)}</h3>
       </div>
     `
   }
