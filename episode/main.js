@@ -1,4 +1,5 @@
 import {sendMessage} from '../utils.js'
+import playerTemplate from './ui/player.js'
 
 (async () => {
 
@@ -49,7 +50,7 @@ import {sendMessage} from '../utils.js'
     return `
       <div class="episode-main-content">
         <div class="episode-main-column">
-          ${renderPlayer(episode)}
+          ${playerTemplate(episode)}
           <p>
             <iframe
                 class="episode-description"
@@ -61,31 +62,6 @@ import {sendMessage} from '../utils.js'
         <div class="episode-next-episodes">
          ${nextEpisodes.slice(0, 3).map(episode => renderNextEpisode(episode)).join('')}
         </div>
-      </div>
-    `
-  }
-
-  function renderPlayer(episode) {
-    let source = {
-      quality: -Infinity
-    }
-    for (let sourceOption of episode.videoSource) {
-      if (
-        Math.abs(sourceOption.quality - TARGET_QUALITY) <
-        Math.abs(source.quality - TARGET_QUALITY)
-      ) {
-        source = sourceOption
-      }
-    }
-
-    return `
-      <div class="player">
-        <div class="player-sizer" style="padding-top: ${(1 / episode.aspectRatio) * 100}%"></div>
-        <video class="player-video" controls autoplay preload="auto">
-          <source
-              src="${source.source.replace(/"/g, '&quot;')}"
-              type="${source.type.replace(/"/g, '&quot;')}">
-        </video>
       </div>
     `
   }
