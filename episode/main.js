@@ -38,10 +38,4 @@ import richContentTemplate, {registerRichContentElement} from './ui/richContent.
     `
   }
 
-  function escape(string) {
-    let container = document.createElement('span')
-    container.appendChild(document.createTextNode(string))
-    return container.innerHTML
-  }
-
 })()
