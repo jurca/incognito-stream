@@ -5,9 +5,6 @@ export function sendMessage(command, args) {
   })
 }
 
-const htmlEscapeHelper = document.createElement('span')
-
 export function escapeHTML(html) {
-  htmlEscapeHelper.innerText = html
-  return htmlEscapeHelper.innerHTML.replace(/"/g, '&quot;')
+  return html.replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;')
 }
