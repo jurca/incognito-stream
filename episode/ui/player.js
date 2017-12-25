@@ -1,8 +1,8 @@
-import {escapeHTML} from '../../utils.js'
+import {escapeHTML, generateElementId} from '../../utils.js'
 
 const TARGET_QUALITY = 720;
 
-let lastElmId = 0
+let elementId = 0
 
 export default episode => {
   let source = {
@@ -15,15 +15,15 @@ export default episode => {
   }
 
   return `
-    <div class="player" data-elm-id="player-${++lastElmId}">
+    <div class="player" data-elm-id="${elementId = generateElementId()}">
       <style>
-        .player[data-elm-id='player-${lastElmId}'] {
+        .player[data-elm-id='${elementId}'] {
           position: relative;
         
           margin-bottom: 24px;
         }
       
-        [data-elm-id='player-${lastElmId}']::before {
+        [data-elm-id='${elementId}']::before {
           display: block;
         
           padding-top: ${(1 / episode.aspectRatio) * 100}%;
@@ -33,7 +33,7 @@ export default episode => {
           content: '';
         }
         
-        [data-elm-id='player-${lastElmId}'] .player-video {
+        [data-elm-id='${elementId}'] .player-video {
           position: absolute;
           left: 0;
           top: 0;
