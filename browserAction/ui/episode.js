@@ -1,11 +1,11 @@
-import {escapeHTML} from '../../utils.js'
+import {escapeHTML, generateElementId} from '../../utils.js'
 
-let lastElmId = 0
+let elementId
 
 export default episode => `
-<a href="${chrome.runtime.getURL(`episode/episode.html?episode=${episode.id}`)}" class="episode" target="_blank" data-elm-id="episode-${++lastElmId}">
+<a href="${chrome.runtime.getURL(`episode/episode.html?episode=${episode.id}`)}" class="episode" target="_blank" data-elm-id="${elementId = generateElementId()}">
   <style>
-    .episode[data-elm-id='episode-${lastElmId}'] {
+    .episode[data-elm-id='${elementId}'] {
       display: flex;
     
       color: #000000;
@@ -14,23 +14,23 @@ export default episode => `
       cursor: pointer;
     }
     
-    .episode[data-elm-id='episode-${lastElmId}']:hover {
+    .episode[data-elm-id='${elementId}']:hover {
       background: #f0f0f0;
     }
     
-    [data-elm-id='episode-${lastElmId}'] .episode-thumbnail {
+    [data-elm-id='${elementId}'] .episode-thumbnail {
       margin-right: 16px;
       width: 180px;
       height: 100px;
       flex: 0 0 auto;
     }
     
-    [data-elm-id='episode-${lastElmId}'] .episode-text-content {
+    [data-elm-id='${elementId}'] .episode-text-content {
       width: calc(100% - 196px);
       flex: 1 0 auto;
     }
     
-    [data-elm-id='episode-${lastElmId}'] .episode-text-content h2 {
+    [data-elm-id='${elementId}'] .episode-text-content h2 {
       margin: 0 0 16px;
     
       overflow: hidden;

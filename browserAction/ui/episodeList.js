@@ -1,23 +1,24 @@
-import episodeTemplate from "./episode.js"
+import {generateElementId} from '../../utils.js'
+import episodeTemplate from './episode.js'
 
-let lastElmId = 0
+let elementId
 
 export default episodes => `
-<ul class="episode-list" data-elm-id="episode-list-${++lastElmId}">
+<ul class="episode-list" data-elm-id="${elementId = generateElementId()}">
   <style>
-    .episode-list[data-elm-id='episode-list-${lastElmId}'] {
+    .episode-list[data-elm-id='${elementId}'] {
       margin: 0;
       padding: 0;
     
       list-style: none;
     }
     
-    [data-elm-id='episode-list-${lastElmId}'] .episode-list-item {
+    [data-elm-id='${elementId}'] .episode-list-item {
       border-bottom: 1px solid #a0a0a0;
       padding: 8px 0;
     }
     
-    [data-elm-id='episode-list-${lastElmId}'] .episode-list-item:last-child {
+    [data-elm-id='${elementId}'] .episode-list-item:last-child {
       border-bottom: none;
     }
   </style>
