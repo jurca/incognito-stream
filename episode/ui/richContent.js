@@ -13,7 +13,6 @@ export default content => `
   </style>
 
   <iframe
-    class="episode-description"
     srcdoc="
       ${content.replace(/"/g, '&quot;')}
       <script data-elm-id=${elementId} src=&quot;ui/richContent-contentSizeReporter.js&quot;></script>
