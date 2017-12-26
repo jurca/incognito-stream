@@ -3,7 +3,6 @@ import episodeTemplate from './ui/episode.js'
 import {registerRichContentElement} from './ui/richContent.js'
 
 (async () => {
-
   let episodeId = parseInt(/episode=(\d+)/.exec(location.search)[1])
   if (!episodeId) {
     return
@@ -19,5 +18,4 @@ import {registerRichContentElement} from './ui/richContent.js'
     nextEpisodes: nextEpisodes.episodes,
   })
   document.title = `${episode.title} | Incognito Stream.cz`
-
 })()
