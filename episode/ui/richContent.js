@@ -14,6 +14,16 @@ export default content => `
 
   <iframe
     srcdoc="
+      <style>
+        html {
+          font-family: Arial, sans-serif;
+          font-size: 100%;
+        }
+        
+        body {
+          margin: 0;
+        }
+      </style>
       ${content.replace(/"/g, '&quot;')}
       <script data-elm-id=${elementId} src=&quot;ui/richContent-contentSizeReporter.js&quot;></script>
     "

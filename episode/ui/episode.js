@@ -26,9 +26,7 @@ export default episode => `
 
   <div class="main-column">
     ${playerTemplate(episode)}
-    <p>
-      ${richContentTemplate(`<h1>${episode.title}</h1>${episode.description}`)}
-    </p>
+    ${richContentTemplate(`<h1 style="margin-top: 0">${episode.title}</h1>${episode.description}`)}
   </div>
   <div class="next-episodes">
     ${episode.nextEpisodes.slice(0, 3).map(episode => episodeLinkTemplate({
