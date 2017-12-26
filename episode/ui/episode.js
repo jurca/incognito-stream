@@ -19,7 +19,6 @@ export default episode => `
     
     [data-elm-id='${elementId}'] .next-episodes {
       margin-left: 16px;
-      width: 180px;
       flex: 0 0 180px;
     }
   </style>

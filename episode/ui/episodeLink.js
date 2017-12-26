@@ -24,6 +24,11 @@ export default episode => `
       background: #f0f0f0;
     }
     
+    [data-elm-id='${elementId}'] img {
+      width: 100%;
+      height: 100px;
+    }
+    
     [data-elm-id='${elementId}'] h2 {
       margin: 0;
       
